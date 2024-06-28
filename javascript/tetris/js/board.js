@@ -43,7 +43,9 @@ class Board {
     });
   }
 
-  addSquaresToBoard() {
-
+  addSquares(coords, color) {
+    coords.forEach(([row, col]) => {
+      this.grid[row][col] = color;
+    });
   }
 }

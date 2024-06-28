@@ -1,17 +1,19 @@
+const INITIAL_COL = 7;
+
 class Game {
   constructor() {
     this.board = new Board();
     this.printer = new ScreenPrinter();
-    this.currentShape = new Shape();
+    this.currentShape = new Shape(INITIAL_COL);
     this.interval = null;
   }
 
   start() {
     const reprint = () => {
       this.printer.clear();
-      this.printer.drawBoard(this.board);
       this.moveShapeDown();
       this.printer.drawShape(this.currentShape);
+      this.printer.drawBoard(this.board);
     }
     reprint.bind(this);
     this.interval = setInterval(function() {
@@ -24,13 +26,17 @@ class Game {
   }
 
   moveShapeDown() {
+    const shape = this.currentShape;
+    const board = this.board;
     this.currentShape.moveDown();
-    const shapeCoords = this.currentShape.getRealCoordinates();
-    const outOfBounds = this.board.isOutOfBounds(shapeCoords);
-    const hasCollision = this.board.hasCollision(shapeCoords);
+    const shapeCoords = shape.getRealCoordinates();
+    const outOfBounds = board.isOutOfBounds(shapeCoords);
+    const hasCollision = board.hasCollision(shapeCoords);
   
     if (outOfBounds || hasCollision) {
-      this.currentShape.restorePreviousPosition();
+      shape.restorePreviousPosition();
+      board.addSquares(shape.getRealCoordinates(), shape.color);
+      this.currentShape = new Shape(INITIAL_COL);
     }
   }
 }

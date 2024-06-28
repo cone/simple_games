@@ -13,7 +13,7 @@ const COLORS = ["cyan", "red", "green", "yellow", "pink", "blue"];
 class Shape {
   constructor(col = 0, row = 0) {
     this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
-    this.shape = SHAPES[Math.floor(Math.random() * SHAPES.length)];
+    this.squares = SHAPES[Math.floor(Math.random() * SHAPES.length)];
     this.col = col;
     this.row = row;
     this.prevCol = col;
@@ -26,7 +26,7 @@ class Shape {
   }
 
   getRealCoordinates() {
-    return this.shape.map(([row, col]) => [row + this.row, col + this.col]);
+    return this.squares.map(([row, col]) => [row + this.row, col + this.col]);
   }
 
   restorePreviousPosition() {

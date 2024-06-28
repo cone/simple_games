@@ -19,6 +19,8 @@ class ScreenPrinter {
   }
 
   drawShape(shape) {
+    if (!shape) return;
+
     shape.getRealCoordinates().forEach(([row, col]) => {
       this.drawSquare(row, col, shape.color);
     });
