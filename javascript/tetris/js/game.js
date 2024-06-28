@@ -9,15 +9,8 @@ class Game {
   }
 
   start() {
-    const reprint = () => {
-      this.printer.clear();
-      this.moveShapeDown();
-      this.printer.drawShape(this.currentShape);
-      this.printer.drawBoard(this.board);
-    }
-    reprint.bind(this);
-    this.interval = setInterval(function() {
-      reprint();
+    this.interval = setInterval(() => {
+      this.reprint();
     }, 1000);
   }
 
@@ -25,10 +18,17 @@ class Game {
     clearInterval(this.interval);
   }
 
-  moveShapeDown() {
+  reprint() {
+    this.printer.clear();
+    this.printer.drawShape(this.currentShape);
+    this.printer.drawBoard(this.board);
+    this.currentShape.moveDown();
+    this.handleCollisions();
+  }
+
+  handleCollisions() {
     const shape = this.currentShape;
     const board = this.board;
-    this.currentShape.moveDown();
     const shapeCoords = shape.getRealCoordinates();
     const outOfBounds = board.isOutOfBounds(shapeCoords);
     const hasCollision = board.hasCollision(shapeCoords);
