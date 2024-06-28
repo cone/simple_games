@@ -16,13 +16,21 @@ class Shape {
     this.shape = SHAPES[Math.floor(Math.random() * SHAPES.length)];
     this.col = col;
     this.row = row;
+    this.prevCol = col;
+    this.prevRow = row;
   }
 
   moveDown() {
+    this.prevRow = this.row;
     this.row++;
   }
 
   getRealCoordinates() {
-    return this.shape.map(([col, row]) => [col + this.col, row + this.row]);
+    return this.shape.map(([row, col]) => [row + this.row, col + this.col]);
+  }
+
+  restorePreviousPosition() {
+    this.row = this.prevRow;
+    this.col = this.prevCol;
   }
 }

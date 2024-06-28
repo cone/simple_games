@@ -10,7 +10,7 @@ class Game {
     const reprint = () => {
       this.printer.clear();
       this.printer.drawBoard(this.board);
-      this.currentShape.moveDown();
+      this.moveShapeDown();
       this.printer.drawShape(this.currentShape);
     }
     reprint.bind(this);
@@ -22,6 +22,17 @@ class Game {
   stop() {
     clearInterval(this.interval);
   }
+
+  moveShapeDown() {
+    this.currentShape.moveDown();
+    const shapeCoords = this.currentShape.getRealCoordinates();
+    const outOfBounds = this.board.isOutOfBounds(shapeCoords);
+    const hasCollision = this.board.hasCollision(shapeCoords);
+  
+    if (outOfBounds || hasCollision) {
+      this.currentShape.restorePreviousPosition();
+    }
+  }
 }
 
-// (new Game()).start();
+(new Game()).start();

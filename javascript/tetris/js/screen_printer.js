@@ -13,14 +13,14 @@ class ScreenPrinter {
     const colSize = board.grid[0].length;
     for (let row = 0; row < rowSize; row++) {
       for (let col = 0; col < colSize; col++) {
-        this.drawSquare(col, row, board.grid[row][col]);
+        this.drawSquare(row, col, board.grid[row][col]);
       }
     }
   }
 
   drawShape(shape) {
-    shape.getRealCoordinates().forEach(([col, row]) => {
-      this.drawSquare(col, row, shape.color);
+    shape.getRealCoordinates().forEach(([row, col]) => {
+      this.drawSquare(row, col, shape.color);
     });
   }
 
@@ -30,10 +30,10 @@ class ScreenPrinter {
     const xInPixels = x * SQUARE_SIZE;
     const yInPixels = y * SQUARE_SIZE;
     this.ctx.fillStyle = color;
-    this.ctx.fillRect(xInPixels, yInPixels, SQUARE_SIZE, SQUARE_SIZE);
+    this.ctx.fillRect(yInPixels, xInPixels, SQUARE_SIZE, SQUARE_SIZE);
     this.ctx.lineWidth = SQUARE_LINE_WIDTH;
     this.ctx.strokeStyle = SQUARE_STROKE_STYLE;
-    this.ctx.strokeRect(xInPixels, yInPixels, SQUARE_SIZE, SQUARE_SIZE);
+    this.ctx.strokeRect(yInPixels, xInPixels, SQUARE_SIZE, SQUARE_SIZE);
   }
 
   clear() {
