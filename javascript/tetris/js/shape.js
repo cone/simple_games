@@ -22,6 +22,7 @@ class Shape {
 
   moveDown() {
     this.prevRow = this.row;
+    this.prevCol = this.col;
     this.row++;
   }
 
