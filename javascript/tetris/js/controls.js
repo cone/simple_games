@@ -6,10 +6,10 @@ const setEventListeners = (game) => {
     
     event.preventDefault();
 
-    if (event.key === "ArrowLeft") {
+    if (event.key === "ArrowLeft" && !game.shapeIsAtLeftEdge()) {
       game.currentShape.moveLeft();
     }
-    if (event.key === "ArrowRight") {
+    if (event.key === "ArrowRight" && !game.shapeIsAtRightEdge()) {
       game.currentShape.moveRight();
     }
   });

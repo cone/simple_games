@@ -31,18 +31,30 @@ class Game {
     this.printer.drawBoard(this.board);
   }
 
+  shapeCoords() {
+    return this.currentShape.getRealCoordinates();
+  }
+
   handleCollisions() {
     const shape = this.currentShape;
     const board = this.board;
-    const shapeCoords = shape.getRealCoordinates();
-    const outOfBounds = board.isOutOfBounds(shapeCoords);
+    const shapeCoords = this.shapeCoords();
+    const isAtBottom = board.isAtBottom(shapeCoords);
     const hasCollision = board.hasCollision(shapeCoords);
   
-    if (outOfBounds || hasCollision) {
-      shape.restorePreviousPosition();
-      board.addSquares(shape.getRealCoordinates(), shape.color);
+    if (isAtBottom || hasCollision) {
+      if (hasCollision) shape.restorePreviousPosition();
+      board.addSquares(this.shapeCoords(), shape.color);
       this.currentShape = new Shape(INITIAL_COL);
     }
+  }
+
+  shapeIsAtLeftEdge() {
+    return this.board.isAtLeftSideEdge(this.shapeCoords());
+  }
+
+  shapeIsAtRightEdge() {
+    return this.board.isAtRightSideEdge(this.shapeCoords());
   }
 }
 
