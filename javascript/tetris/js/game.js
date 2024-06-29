@@ -59,4 +59,4 @@ class Game {
   }
 }
 
-(new Game()).start();
+const myGame = new Game();
