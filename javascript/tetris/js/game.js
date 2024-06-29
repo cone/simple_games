@@ -6,11 +6,12 @@ class Game {
     this.printer = new ScreenPrinter();
     this.currentShape = new Shape(INITIAL_COL);
     this.interval = null;
+    setEventListeners(this);
   }
 
   start() {
     this.interval = setInterval(() => {
-      this.reprint();
+      this.handleShape();
     }, 1000);
   }
 
@@ -18,12 +19,16 @@ class Game {
     clearInterval(this.interval);
   }
 
+  handleShape() {
+    this.reprint();
+    this.currentShape.moveDown();
+    this.handleCollisions();
+  }
+
   reprint() {
     this.printer.clear();
     this.printer.drawShape(this.currentShape);
     this.printer.drawBoard(this.board);
-    this.currentShape.moveDown();
-    this.handleCollisions();
   }
 
   handleCollisions() {

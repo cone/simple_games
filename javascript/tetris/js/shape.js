@@ -25,6 +25,16 @@ class Shape {
     this.row++;
   }
 
+  moveLeft() {
+    this.prevCol = this.col;
+    this.col--;
+  }
+
+  moveRight() {
+    this.prevCol = this.col;
+    this.col++;
+  }
+
   getRealCoordinates() {
     return this.squares.map(([row, col]) => [row + this.row, col + this.col]);
   }
