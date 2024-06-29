@@ -11,7 +11,7 @@ class Game {
 
   start() {
     this.interval = setInterval(() => {
-      this.handleShape();
+      this.handleGame();
     }, 1000);
   }
 
@@ -19,10 +19,11 @@ class Game {
     clearInterval(this.interval);
   }
 
-  handleShape() {
+  handleGame() {
     this.reprint();
     this.currentShape.moveDown();
     this.handleCollisions();
+    this.board.removeFilledRows();
   }
 
   reprint() {

@@ -56,4 +56,13 @@ class Board {
       this.grid[row][col] = color;
     });
   }
+
+  removeFilledRows() {
+    this.grid.forEach((row, index) => {
+      if (row.every((square) => !!square)) {
+        this.grid.splice(index, 1);
+        this.grid.unshift([null, null, null, null, null, null, null, null, null, null, null, null, null, null]);
+      }
+    });
+  }
 }
